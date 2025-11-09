@@ -1,0 +1,16 @@
+# Production Configuration Overlay
+
+config!base config.template.up
+
+# Production uses the defaults from the template, but you can override here
+# For example, to enable monitoring:
+
+opencensus!overlay {
+  prometheus {
+    enabled!bool true
+  }
+}
+
+database!overlay {
+  sslmode verify-full
+}

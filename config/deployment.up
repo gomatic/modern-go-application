@@ -1,0 +1,15 @@
+# Development Configuration Overlay
+
+config!base config.template.up
+
+vars!overlay {
+  environment development
+  debug!bool true
+  shutdown_timeout 0s
+  log_format logfmt
+  log_level debug
+  telemetry_addr 127.0.0.1:10000
+  http_addr 127.0.0.1:8000
+  grpc_addr 127.0.0.1:8001
+}
+

@@ -1,0 +1,66 @@
+# Application Configuration Template
+
+vars {
+  environment production
+  debug!bool false
+  shutdown_timeout 15s
+  log_format json
+  log_level info
+  telemetry_addr :10000
+  http_addr :8000
+  grpc_addr :8001
+}
+
+environment $vars.environment
+debug!bool $vars.debug
+shutdownTimeout $vars.shutdown_timeout
+
+log {
+  format $vars.log_format
+  level $vars.log_level
+}
+
+telemetry {
+  addr $vars.telemetry_addr
+}
+
+opencensus {
+  exporter {
+    enabled!bool false
+    address 127.0.0.1:55678
+    insecure!bool false
+    reconnectPeriod 5s
+  }
+
+  trace {
+    sampling {
+      sampler always
+    }
+    # Alternative probability sampling:
+    # sampling {
+    #   sampler probability
+    #   fraction!float 0.5
+    # }
+  }
+
+  prometheus {
+    enabled!bool false
+  }
+}
+
+app {
+  httpAddr $vars.http_addr
+  grpcAddr $vars.grpc_addr
+}
+
+database {
+  host localhost
+  port!int 3306
+  user root
+  pass ""
+  name app
+  params {
+    collation utf8mb4_general_ci
+  }
+}
+
